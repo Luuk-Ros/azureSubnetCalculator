@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import NewVNETForm from './components/NewVNETForm';
-import ExistingVNETForm from './components/ExistingVNETForm';
 import Results from './components/Results';
-import { calculateSubnet } from './utils/calculateSubnet';
+import { calculateSubnet, getNextSubnet, calculateCIDR } from './utils/calculateSubnet';
 import './App.css';
 
 function App() {
@@ -12,20 +11,20 @@ function App() {
   const [theme, setTheme] = useState('light-mode');
 
   const handleCalculate = (data) => {
-    const result = calculateSubnet(data.vnetAddress, data.numberOfSubnets, data.hostsPerSubnet);
-
+    setErrorMessage(null); // Clear any previous error message
+  
+    const result = calculateSubnet(data.vnetAddress, data.subnets.length, data.subnets.map(s => s.hosts));
+  
     if (result.error) {
-        setErrorMessage(result.error);
-    } else {
-        setErrorMessage(null); // Clear any previous error message
+      setErrorMessage(result.error);
+      return;
     }
-    setSubnets(result.subnets);
+  
+    setSubnets(result.subnets.map((subnet, index) => ({
+      name: data.subnets[index].name,
+      cidr: subnet.cidr
+    })));
     setVnetAddress(data.vnetAddress);
-  };
-
-  const handleAddSubnet = (data) => {
-    // This is a placeholder. You can expand upon this function based on your requirements.
-    alert("Functionality to add subnet to existing VNET is not yet implemented.");
   };
 
   const toggleTheme = () => {
@@ -36,12 +35,13 @@ function App() {
     <div className={`App ${theme}`}>
       <div className="header">
         <h1>Azure VNET Subnet Calculator</h1>
-        <button onClick={toggleTheme}>Switch to {theme === 'light-mode' ? 'Dark' : 'Light'} Mode</button>
+        <button className="dark-mode-button" onClick={toggleTheme}>
+          {theme === 'light-mode' ? '🌙' : '☀️'}
+        </button>      
       </div>
-
       <div className="main-content">
         <div className="forms-section">
-          <h2>Calculate New VNET</h2>
+          <h2>Requests Subnets</h2>
           <NewVNETForm onCalculate={handleCalculate} />
         </div>
 
@@ -53,12 +53,10 @@ function App() {
       </div>
 
       <div className="footer">
-        © 2023 Your Company Name. All rights reserved.
+       2023 - Luuk Ros - Azure Subnet Calculator Beta
       </div>
     </div>
   );
 }
-export default App;
 
-//          <h2>Add Subnet to Existing VNET</h2>
-//          <ExistingVNETForm onAddSubnet={handleAddSubnet} />
+export default App;

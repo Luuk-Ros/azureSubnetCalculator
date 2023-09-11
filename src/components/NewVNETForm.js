@@ -2,27 +2,33 @@ import React, { useState } from 'react';
 
 const NewVNETForm = ({ onCalculate }) => {
   const [vnetAddress, setVnetAddress] = useState('');
-  const [numberOfSubnets, setNumberOfSubnets] = useState(0);
-  const [hostsPerSubnet, setHostsPerSubnet] = useState(0);
-  const [dedicatedSubnets, setDedicatedSubnets] = useState({
-    AzureBastion: false,
-    // ... Add other dedicated subnets here
-  });
+  const [subnets, setSubnets] = useState([{ name: '', hosts: 0 }]);
 
-  const handleCheckboxChange = (event) => {
-    setDedicatedSubnets({
-      ...dedicatedSubnets,
-      [event.target.name]: event.target.checked
-    });
+  const handleSubnetChange = (index, field, value) => {
+    const newSubnets = [...subnets];
+    newSubnets[index][field] = value;
+    setSubnets(newSubnets);
+  };
+
+  const addSubnet = () => {
+    if (subnets.length < 8) {
+      setSubnets([...subnets, { name: '', hosts: 0 }]);
+    }
+  };  
+
+  const removeSubnet = () => {
+    if (subnets.length > 1) { // Ensure there's always at least one subnet
+      const newSubnets = [...subnets];
+      newSubnets.pop();
+      setSubnets(newSubnets);
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     onCalculate({
       vnetAddress,
-      numberOfSubnets,
-      hostsPerSubnet,
-      dedicatedSubnets
+      subnets
     });
   };
 
@@ -32,24 +38,37 @@ const NewVNETForm = ({ onCalculate }) => {
         VNET Address Space:
         <input type="text" value={vnetAddress} onChange={e => setVnetAddress(e.target.value)} />
       </label>
+    <div className="subnet-container">
+        {subnets.map((subnet, index) => (
+      <div className="subnet-form" key={index}>
       <label>
-        Number of Subnets:
-        <input type="number" value={numberOfSubnets} onChange={e => setNumberOfSubnets(e.target.value)} />
+        Subnet Name:
+        <input type="text" value={subnet.name} onChange={e => handleSubnetChange(index, 'name', e.target.value)} />
       </label>
       <label>
         Hosts per Subnet:
-        <input type="number" value={hostsPerSubnet} onChange={e => setHostsPerSubnet(e.target.value)} />
+        <input type="number" value={subnet.hosts} onChange={e => handleSubnetChange(index, 'hosts', e.target.value)} />
       </label>
-      <label>
-        Azure Bastion:
-        <input 
-          type="checkbox" 
-          name="AzureBastion" 
-          checked={dedicatedSubnets.AzureBastion} 
-          onChange={handleCheckboxChange} 
-        />
-      </label>
-      {/* Add more checkboxes for other dedicated subnets as needed */}
+      </div>
+      ))}
+    </div>
+
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <button 
+          type="button" 
+          onClick={addSubnet} 
+          className="round-button"
+        >
+          +
+        </button>
+        <button 
+          type="button" 
+          onClick={removeSubnet} 
+          className="round-button"
+        >
+          -
+        </button>
+      </div>
       <button type="submit">Calculate</button>
     </form>
   );

@@ -1,35 +1,104 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
 }
 
 .header, .footer {
+  background-color: #333;
+  color: #fff;
+  padding: 20px 0;
   text-align: center;
-  padding: 10px;
 }
 
-.App {
-  text-align: center;
-  transition: background-color 0.3s, color 0.3s;
+.header {
+  display: flex;
   justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  position: relative;
+}
+
+.header h1 {
+  flex: 1;
+  text-align: center;
+  margin: 0;
+}
+
+.dark-mode-button {
+  margin-left: 20px; /* Add some spacing between the title and the button */
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
+
+.light-mode .dark-mode-button {
+  color: #f39c12; /* Sun color */
+  background-color: #616161;
+}
+
+.dark-mode .dark-mode-button {
+  color: #3498db; /* Moon color */
+  background-color: #616161;
+}
+
+.dark-mode-button:hover {
+  background-color: rgba(0,0,0,0.1);
+}
+
+.dark-mode-button:focus {
+  outline: none;
+} 
+
+.App {
+  max-width: 90%;
+  margin: 20px auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-
 }
 
 .main-content {
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
-  padding: 20px 0;
+  padding: 5px;
 }
 
 .forms-section, .results-section {
   flex: 1;
+  display: flex;
+  flex-direction: column;
   padding: 20px;
 }
 
+.subnet-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 30px;
+}
+
+.results-section {
+  border-left: 1px solid #e0e0e0;
+  align-items: center;
+}
+
 .error-message, .suggestion-message {
-  color: red;
+  color: #e74c3c;
   margin-top: 10px;
+  font-weight: bold;
 }
 
 .light-mode {
@@ -43,8 +112,9 @@ body {
 }
 
 button {
-  margin: 10px;
+  margin: 10px 0;
   padding: 10px 20px;
+  margin-right: 60px;
   font-size: 16px;
   background-color: #0078D4;
   color: #ffffff;
@@ -58,21 +128,100 @@ button:hover {
   background-color: #005a9e;
 }
 
+button:not(:last-child) {
+  margin-right: 10px; /* Adjust this value as needed */
+}
+
+.round-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  border: none;
+  background-color: #007BFF;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.round-button:hover {
+  background-color: #0056b3;
+}
+
+.round-button:active {
+  background-color: #003d80;
+}
+
+.round-button:focus {
+  outline: none;
+}
+
 form {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 10px;
+  width: 100%;
+  max-width: 95%;
+  margin: 0 auto;
 }
 
 label {
   display: flex;
   flex-direction: column;
   gap: 5px;
+  margin-bottom: 10px;
 }
 
-.error-message {
-  color: red;
-  font-weight: bold;
-  margin-top: 20px;
+input[type="text"], input[type="number"] {
+  padding: 10px;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table, th, td {
+  border: 1px solid #e0e0e0;
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    flex-direction: column;
+  }
+
+  .results-section {
+    border-left: none;
+    border-top: 1px solid #e0e0e0;
+    padding-top: 20px;
+  }
+
+  .subnet-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .header h1 {
+    font-size: 18px; /* Reduce the font size */
+  }
+
+  .dark-mode-button {
+    font-size: 20px; /* Reduce the icon size */
+  }
 }

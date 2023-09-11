@@ -101,6 +101,12 @@ body {
   font-weight: bold;
 }
 
+.warning-message {
+  color: #f39c12; /* Warning color */
+  margin-top: 10px;
+  font-weight: bold;
+}
+
 .light-mode {
   background-color: #ffffff;
   color: #0078D4;

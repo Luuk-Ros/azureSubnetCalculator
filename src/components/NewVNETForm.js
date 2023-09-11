@@ -36,7 +36,7 @@ const NewVNETForm = ({ onCalculate }) => {
     <form onSubmit={handleSubmit}>
       <label>
         VNET Address Space:
-        <input type="text" value={vnetAddress} onChange={e => setVnetAddress(e.target.value)} />
+        <input type="text" value={vnetAddress} onChange={e => setVnetAddress(e.target.value)} placeholder="e.g., 172.20.10.0/28"  />
       </label>
     <div className="subnet-container">
         {subnets.map((subnet, index) => (

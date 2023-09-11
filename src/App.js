@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import NewVNETForm from './components/NewVNETForm';
 import Results from './components/Results';
-import { calculateSubnet, getNextSubnet, calculateCIDR } from './utils/calculateSubnet';
+import { calculateSubnet } from './utils/calculateSubnet';
 import './App.css';
 
 function App() {
@@ -9,15 +9,21 @@ function App() {
   const [vnetAddress, setVnetAddress] = useState('');
   const [errorMessage, setErrorMessage] = useState(null);
   const [theme, setTheme] = useState('light-mode');
+  const [warningMessage, setWarningMessage] = useState(null);
 
   const handleCalculate = (data) => {
     setErrorMessage(null); // Clear any previous error message
+    setWarningMessage(null); // Clear any previous warning message
   
     const result = calculateSubnet(data.vnetAddress, data.subnets.length, data.subnets.map(s => s.hosts));
   
     if (result.error) {
       setErrorMessage(result.error);
       return;
+    }
+  
+    if (result.warning) {
+      setWarningMessage(result.warning);
     }
   
     setSubnets(result.subnets.map((subnet, index) => ({
@@ -47,9 +53,11 @@ function App() {
 
         <div className="results-section">
           {errorMessage && <div className="error-message">{errorMessage}</div>}
+          {warningMessage && <div className="warning-message" dangerouslySetInnerHTML={{ __html: warningMessage }}></div>}
           {errorMessage && <div className="suggestion-message">Consider reducing the number of hosts per subnet or the total number of subnets.</div>}
           {subnets.length > 0 && <Results subnets={subnets} vnetAddress={vnetAddress} />}
         </div>
+
       </div>
 
       <div className="footer">

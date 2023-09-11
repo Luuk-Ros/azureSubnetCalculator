@@ -13,6 +13,23 @@ export const calculateCIDR = (hosts) => {
   // ... add more conditions if needed
 };
 
+const isOutsidePrivateNetworkClasses = (vnetAddress) => {
+  const [ip] = vnetAddress.split('/');
+  const [firstOctet, secondOctet] = ip.split('.').map(octet => parseInt(octet, 10));
+
+  // Class A: 10.0.0.0 to 10.255.255.255
+  if (firstOctet === 10) return false;
+
+  // Class B: 172.16.0.0 to 172.31.255.255
+  if (firstOctet === 172 && (secondOctet >= 16 && secondOctet <= 31)) return false;
+
+  // Class C: 192.168.0.0 to 192.168.255.255
+  if (firstOctet === 192 && secondOctet === 168) return false;
+
+  return true;
+};
+
+
 export const getNextSubnet = (baseAddress, cidr) => {
   const [address,] = baseAddress.split('/');
   const ipParts = address.split('.').map(part => parseInt(part, 10));
@@ -84,6 +101,15 @@ export const calculateSubnet = (vnetAddress, numberOfSubnets, hostsPerSubnetArra
       error: `The calculated subnets exceed the provided VNET address space.`
     };
   }
+  
+  // Check if the VNET address space is outside of the private network classes
+  if (isOutsidePrivateNetworkClasses(vnetAddress)) {
+    return {
+      subnets,
+      warning: 'Warning: You have calculated an address space outside of the private network ranges of class A, B, and C. For more information on private network classes, <a href="https://en.wikipedia.org/wiki/Private_network" target="_blank" rel="noopener noreferrer">click here</a> to read about it on Wikipedia.'
+    };
+  }
 
   return { subnets };
+  
 };

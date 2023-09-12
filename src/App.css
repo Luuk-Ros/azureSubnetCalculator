@@ -1,33 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
 body {
-  font-family: 'Arial', sans-serif;
+  font-family: Roboto, sans-serif;
   margin: 0;
   padding: 0;
   background-color: #f4f4f4;
 }
 
-.header, .footer {
+.App {
+  max-width: 90%;
+  margin: 20px auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  text-decoration: none;
+  color: #54b4f3;
+  font-family: Roboto;
+  font-weight: bold;
+}
+
+h2 {
+  font-weight: bold;
+}
+
+.header {
+  background-color: #333;
+  display: flex;
+  align-items: center;
+  padding: 20px 0;
+  color: #fff;
+}
+
+.header h1 {
+  margin: 0;
+  font-family: Roboto;
+  flex: 1;
+  text-align: center;
+}
+
+.information {
+  color: #000;
+  padding: 20px 0;
+  text-align: center;
+  font-style: italic;
+  background-color: #f4f4f4;
+}
+
+.footer {
   background-color: #333;
   color: #fff;
   padding: 20px 0;
   text-align: center;
 }
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 20px;
-  position: relative;
-}
-
-.header h1 {
-  flex: 1;
-  text-align: center;
-  margin: 0;
-}
-
 .dark-mode-button {
-  margin-left: 20px; /* Add some spacing between the title and the button */
+  position: absolute;
+  top: 20px;
+  right: 15px;
   background-color: transparent;
   border: none;
   cursor: pointer;
@@ -42,12 +77,12 @@ body {
 }
 
 .light-mode .dark-mode-button {
-  color: #f39c12; /* Sun color */
+  color: #f39c12;
   background-color: #616161;
 }
 
 .dark-mode .dark-mode-button {
-  color: #3498db; /* Moon color */
+  color: #3498db;
   background-color: #616161;
 }
 
@@ -57,17 +92,6 @@ body {
 
 .dark-mode-button:focus {
   outline: none;
-} 
-
-.App {
-  max-width: 90%;
-  margin: 20px auto;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
-  border-radius: 8px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
 }
 
 .main-content {
@@ -92,7 +116,12 @@ body {
 
 .results-section {
   border-left: 1px solid #e0e0e0;
-  align-items: center;
+  align-items: left;
+}
+
+.export-buttons {
+  display: flex;
+  justify-content: right;
 }
 
 .error-message, .suggestion-message {
@@ -102,7 +131,7 @@ body {
 }
 
 .warning-message {
-  color: #f39c12; /* Warning color */
+  color: #f39c12;
   margin-top: 10px;
   font-weight: bold;
 }
@@ -120,7 +149,6 @@ body {
 button {
   margin: 10px 0;
   padding: 10px 20px;
-  margin-right: 60px;
   font-size: 16px;
   background-color: #0078D4;
   color: #ffffff;
@@ -135,7 +163,7 @@ button:hover {
 }
 
 button:not(:last-child) {
-  margin-right: 10px; /* Adjust this value as needed */
+  margin-right: 10px;
 }
 
 .round-button {
@@ -206,12 +234,12 @@ th {
   background-color: #f2f2f2;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 868px) {
   .main-content {
     flex-direction: column;
   }
 
-  .results-section {
+  .results-section, .results-section {
     border-left: none;
     border-top: 1px solid #e0e0e0;
     padding-top: 20px;
@@ -220,14 +248,43 @@ th {
   .subnet-container {
     grid-template-columns: 1fr;
   }
+
+  h2 {
+    font-size: 22px;
+  }
+
+  .forms-section{
+    font-size: 20px;
+  }
+
+  .information {
+    font-size: 18px;
+  }
 }
 
 @media (max-width: 480px) {
   .header h1 {
-    font-size: 18px; /* Reduce the font size */
+    font-size: 18px;
+  }
+
+  h2 {
+    font-size: 16px;
+  }
+
+  .forms-section, .results-section {
+    font-size: 14px;
+  }
+
+  .information {
+    font-size: 12px;
+    padding: 6px;
+  }
+
+  .footer {
+    font-size: 14px;
   }
 
   .dark-mode-button {
-    font-size: 20px; /* Reduce the icon size */
+    font-size: 20px;
   }
 }

@@ -1,3 +1,8 @@
+const calculateUsableHosts = (cidr) => {
+    const totalHosts = Math.pow(2, 32 - parseInt(cidr.split('/')[1]));
+    return totalHosts - 5;
+  };
+
 const exportToJSON = (subnets, vnetAddress) => {
     const data = {
         "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
@@ -26,10 +31,10 @@ const exportToJSON = (subnets, vnetAddress) => {
 
 const exportToCSV = (subnets) => {
     const csvRows = [];
-    csvRows.push('Name,Address Prefix'); // Header
+    csvRows.push('Name,Address Prefix, Usable Hosts');
 
     subnets.forEach(subnet => {
-        csvRows.push(`${subnet.name},${subnet.cidr}`);
+        csvRows.push(`${subnet.name},${subnet.cidr}, ${calculateUsableHosts(subnet.cidr)}`);
     });
 
     const csvData = csvRows.join('\n');

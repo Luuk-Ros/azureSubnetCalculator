@@ -24,13 +24,22 @@ const NewVNETForm = ({ onCalculate }) => {
     }
   };
 
-  const handleSubmit = (e) => {
+const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Check for invalid host numbers
+    for (let subnet of subnets) {
+        if (subnet.hosts <= 5) {
+            alert("Please enter a valid number of hosts. Considering Azure's reserved IP addresses, you need to request more than 5 hosts.");
+            return;
+        }
+    }
+
     onCalculate({
       vnetAddress,
       subnets
     });
-  };
+};
 
   return (
     <form onSubmit={handleSubmit}>

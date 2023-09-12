@@ -1,16 +1,14 @@
 export const calculateCIDR = (hosts) => {
-  if (hosts <= 2) return 30; // 4 addresses, 2 usable for hosts
-  if (hosts <= 6) return 29; // 8 addresses, 6 usable for hosts
-  if (hosts <= 14) return 28; // 16 addresses, 14 usable for hosts
-  if (hosts <= 30) return 27; // 32 addresses, 30 usable for hosts
-  if (hosts <= 62) return 26; // 64 addresses, 62 usable for hosts
-  if (hosts <= 126) return 25; // 128 addresses, 126 usable for hosts
-  if (hosts <= 254) return 24; // 256 addresses, 254 usable for hosts
-  if (hosts <= 510) return 23; // 512 addresses, 510 usable for hosts
-  if (hosts <= 1022) return 22; // 1024 addresses, 1022 usable for hosts
-  if (hosts <= 2046) return 21; // 2048 addresses, 2046 usable for hosts
-  if (hosts <= 4094) return 20; // 4096 addresses, 4094 usable for hosts
-  // ... add more conditions if needed
+  if (hosts <= 6) return 29; // 8 addresses, 3 usable for hosts
+  if (hosts <= 11) return 28; // 16 addresses, 11 usable for hosts
+  if (hosts <= 27) return 27; // 32 addresses, 27 usable for hosts
+  if (hosts <= 59) return 26; // 64 addresses, 59 usable for hosts
+  if (hosts <= 123) return 25; // 128 addresses, 123 usable for hosts
+  if (hosts <= 251) return 24; // 256 addresses, 251 usable for hosts
+  if (hosts <= 507) return 23; // 512 addresses, 507 usable for hosts
+  if (hosts <= 1019) return 22; // 1024 addresses, 1019 usable for hosts
+  if (hosts <= 2043) return 21; // 2048 addresses, 2043 usable for hosts
+  if (hosts <= 4091) return 20; // 4096 addresses, 4091 usable for hosts
 };
 
 const isOutsidePrivateNetworkClasses = (vnetAddress) => {

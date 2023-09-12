@@ -62,7 +62,7 @@ function App() {
       <br></br><br></br>
       The Subnet calculation logic is inspired by <a href="https://github.com/salieri/IPSubnetCalculator/blob/master/lib/ip-subnet-calculator.js" target="_blank" rel="noopener noreferrer">IPSubnetCalculator</a> from <a href="https://github.com/salier" target="_blank" rel="noopener noreferrer">Salieri</a></div>
       <div className="footer">
-      Azure Subnet Calculator Beta - By <a href="https://www.linkedin.com/in/luukros/" target="_blank" rel="noopener noreferrer">Luuk Ros</a> and powered by ChatGPT
+      Azure Subnet Calculator Beta - By <a href="https://www.linkedin.com/in/luukros/" target="_blank" rel="noopener noreferrer">Luuk Ros</a>
       </div>
     </div>
   );

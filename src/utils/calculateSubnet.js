@@ -1,5 +1,5 @@
 export const calculateCIDR = (hosts) => {
-  if (hosts <= 6) return 29; // 8 addresses, 3 usable for hosts
+  if (hosts <= 3) return 29; // 8 addresses, 3 usable for hosts
   if (hosts <= 11) return 28; // 16 addresses, 11 usable for hosts
   if (hosts <= 27) return 27; // 32 addresses, 27 usable for hosts
   if (hosts <= 59) return 26; // 64 addresses, 59 usable for hosts

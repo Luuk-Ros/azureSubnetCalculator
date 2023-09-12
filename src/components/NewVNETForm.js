@@ -29,8 +29,8 @@ const handleSubmit = (e) => {
 
     // Check for invalid host numbers
     for (let subnet of subnets) {
-        if (subnet.hosts <= 5) {
-            alert("Please enter a valid number of hosts. Considering Azure's reserved IP addresses, you need to request more than 5 hosts.");
+        if (subnet.hosts <= 2) {
+            alert("Please enter a valid number of hosts. Considering Azure's reserved IP addresses, you need to request more than 2 usable hosts.");
             return;
         }
     }

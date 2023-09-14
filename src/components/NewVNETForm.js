@@ -33,7 +33,14 @@ const handleSubmit = (e) => {
       return;
     }
 
-    // Check for empty subnet names or hosts
+    // Validate VNET Address format
+    const vnetRegex = /^([0-9]{1,3}\.){3}[0-9]{1,3}\/[0-9]{1,2}$/;
+    if (!vnetRegex.test(vnetAddress)) {
+        alert("Invalid VNET Address format.");
+        return;
+    }
+    
+    // Check for empty subnet names and valid hosts
     for (let subnet of subnets) {
       if (!subnet.name.trim() || subnet.hosts <= 0) {
           alert("Please ensure all subnet names and host counts are filled out correctly.");
@@ -44,14 +51,6 @@ const handleSubmit = (e) => {
           alert("Please enter a valid number of hosts. Considering Azure's reserved IP addresses, you need to request more than 2 usable hosts.");
           return;
       }
-    }
-
-    // Check for invalid host numbers
-    for (let subnet of subnets) {
-        if (subnet.hosts <= 2) {
-            alert("Please enter a valid number of hosts. Considering Azure's reserved IP addresses, you need to request more than 2 usable hosts.");
-            return;
-        }
     }
 
     onCalculate({

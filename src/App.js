@@ -1,15 +1,21 @@
 import React, { useState } from 'react';
 import NewVNETForm from './components/NewVNETForm';
+//import ExistingVNETForm from './components/ExistingVNETForm';
 import Results from './components/Results';
 import { calculateSubnet } from './utils/calculationLogic';
 import './App.css';
 
 function App() {
+  //const [formType, setFormType] = useState('new');
   const [subnets, setSubnets] = useState([]);
   const [vnetAddress, setVnetAddress] = useState('');
   const [errorMessage, setErrorMessage] = useState(null);
   const [theme, setTheme] = useState('light-mode');
   const [warningMessage, setWarningMessage] = useState(null);
+
+  /*const switchForm = () => {
+    setFormType(prevFormType => (prevFormType === 'new' ? 'existing' : 'new'));
+  };*/
 
   const handleCalculate = (data) => {
     setErrorMessage(null);
@@ -33,19 +39,26 @@ function App() {
     setVnetAddress(data.vnetAddress);
   };
 
-  const toggleTheme = () => {
-    setTheme(prevTheme => prevTheme === 'light-mode' ? 'dark-mode' : 'light-mode');
-  };
-
   return (
     <div className={`App ${theme}`}>
+      {/* <button className="dark-mode-button" onClick={toggleTheme}>
+        {theme === 'light-mode' ? '🌙' : '☀️'}
+      </button>*/}
       <div className="header">
         <h1>Azure Subnet Calculator</h1>
+       {/* <button className='switch-button' onClick={switchForm}>
+          Switch to {formType === 'new' ? 'Existing VNET Form' : 'New VNET Form'}
+        </button>*/}
       </div>
       <div className="main-content">
         <div className="forms-section">
           <h2>Request Subnets</h2>
-          <NewVNETForm onCalculate={handleCalculate} />
+          {/*{formType === 'new' ? (
+            <NewVNETForm onCalculate={handleCalculate} />
+          ) : (
+            <ExistingVNETForm onCalculate={handleCalculate} />
+          )}*/}
+           <NewVNETForm onCalculate={handleCalculate} />
         </div>
 
         <div className="results-section">
@@ -69,8 +82,3 @@ function App() {
 }
 
 export default App;
-
-
-// <button className="dark-mode-button" onClick={toggleTheme}>
-// {theme === 'light-mode' ? '🌙' : '☀️'}
-// </button>

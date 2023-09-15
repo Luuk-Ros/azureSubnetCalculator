@@ -17,7 +17,7 @@ const NewVNETForm = ({ onCalculate }) => {
   };  
 
   const removeSubnet = () => {
-    if (subnets.length > 1) { // Ensure there's always at least one subnet
+    if (subnets.length > 1) {
       const newSubnets = [...subnets];
       newSubnets.pop();
       setSubnets(newSubnets);
@@ -53,10 +53,7 @@ const handleSubmit = (e) => {
       }
     }
 
-    onCalculate({
-      vnetAddress,
-      subnets
-    });
+    onCalculate({ vnetAddress, subnets });
 };
 
   return (
@@ -80,23 +77,15 @@ const handleSubmit = (e) => {
       ))}
     </div>
 
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <button 
-          type="button" 
-          onClick={addSubnet} 
-          className="round-button"
-        >
-          +
-        </button>
-        <button 
-          type="button" 
-          onClick={removeSubnet} 
-          className="round-button"
-        >
-          -
-        </button>
-      </div>
-      <button type="submit">Calculate</button>
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <button type="button" onClick={addSubnet} className="round-button">
+        +
+      </button>
+      <button type="button" onClick={removeSubnet} className="round-button">
+        -
+      </button>
+    </div>
+    <button type="submit">Calculate</button>
     </form>
   );
 };

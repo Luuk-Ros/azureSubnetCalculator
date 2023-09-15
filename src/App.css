@@ -33,6 +33,7 @@ h2 {
   background-color: #333;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 20px 0;
   color: #fff;
 }
@@ -41,7 +42,8 @@ h2 {
   margin: 0;
   font-family: Roboto;
   flex: 1;
-  text-align: center;
+  text-align: left;
+  margin-left: 15px;
 }
 
 .information {
@@ -92,6 +94,30 @@ h2 {
 
 .dark-mode-button:focus {
   outline: none;
+}
+
+.switch-button {
+  padding: 10px 20px;
+  background-color: #0078D4;
+  color: #ffffff;
+  border: none;
+  border-radius: 25px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-left: auto; 
+  margin-right: 20px;
+}
+
+.switch-button:hover {
+  background-color: #005a9e;
+  transform: scale(1.05); /* Slightly enlarges the button on hover */
+}
+
+.switch-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 120, 212, 0.3); /* Adds a focus ring around the button */
 }
 
 .main-content {
@@ -263,9 +289,14 @@ th {
 }
 
 @media (max-width: 480px) {
+  .switch-button {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+
   .header h1 {
     font-size: 18px;
-  }
+  }  
 
   h2 {
     font-size: 16px;

@@ -27,7 +27,6 @@ const isOutsidePrivateNetworkClasses = (vnetAddress) => {
   return true;
 };
 
-
 export const getNextSubnet = (baseAddress, cidr) => {
   const [address,] = baseAddress.split('/');
   const ipParts = address.split('.').map(part => parseInt(part, 10));
